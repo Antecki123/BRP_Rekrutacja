@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13014845c249e02489778bb7e3c6a558, type: 3}
+  m_Name: Soul10
+  m_EditorClassIdentifier: 
+  UsableInLocalization: 2
+  Avatar: {fileID: 21300000, guid: 524bf481f051c8f408e39ab558daf115, type: 3}
+  Name: Kablam
+  Description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.'
+  CanBeUsed: 1
+  CanBeDestroyed: 1
+  Reward: 10
+  vulnerability: 0
