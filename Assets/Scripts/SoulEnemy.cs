@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class SoulEnemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private GameObject InteractionPanelObject;
     [SerializeField] private GameObject ActionsPanelObject;
     [SerializeField] private SpriteRenderer EnemySpriteRenderer;
+    [SerializeField] private Button combatButton;
 
     private SpawnPoint _enemyPosition;
     private EnemyModel _enemyModel;
@@ -15,6 +17,8 @@ public class SoulEnemy : MonoBehaviour, IEnemy
         _enemyPosition = spawnPoint;
         _enemyModel = enemyModel;
         gameObject.SetActive(true);
+
+        GameEvents.EnemyCreated?.Invoke(this);
     }
 
     public SpawnPoint GetEnemyPosition()
@@ -25,6 +29,11 @@ public class SoulEnemy : MonoBehaviour, IEnemy
     public GameObject GetEnemyObject()
     {
         return gameObject;
+    }
+
+    public Selectable GetCombatButton()
+    {
+        return combatButton;
     }
 
     private void ActiveCombatWithEnemy()
@@ -96,4 +105,5 @@ public interface IEnemy
 {
     SpawnPoint GetEnemyPosition();
     GameObject GetEnemyObject();
+    Selectable GetCombatButton();
 }

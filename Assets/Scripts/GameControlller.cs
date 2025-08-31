@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using static GameEvents;
 
 public enum GameLocalization
 {
@@ -8,6 +7,12 @@ public enum GameLocalization
     CASTLE,
     CITY,
     TOWER
+}
+
+public enum GameState
+{
+    RUNNING,
+    PAUSED
 }
 
 public class GameControlller : MonoBehaviour
@@ -75,12 +80,12 @@ public class GameControlller : MonoBehaviour
 
     private void AttachListeners()
     {
-        ScoredPoints += AddPoints;
+        GameEvents.ScoredPoints += AddPoints;
     }
 
     private void DettachListeners()
     {
-        ScoredPoints -= AddPoints;
+        GameEvents.ScoredPoints -= AddPoints;
     }
 
     private void AddPoints(int points)

@@ -1,5 +1,8 @@
 ﻿public static class GameEvents
 {
+    public delegate void OnEnemyCreated(IEnemy enemy);
+    public static OnEnemyCreated EnemyCreated;
+
     public delegate void OnEnemyKilled(IEnemy enemy);
     public static OnEnemyKilled EnemyKilled;
 
@@ -8,5 +11,7 @@
 
     public delegate void OnScoreUpdated();
     public static OnScoreUpdated ScoreUpdated;
-}
 
+    public delegate void OnGameStateChanged(GameState gameState);
+    public static OnGameStateChanged GameStateChanged;
+}

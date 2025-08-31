@@ -118,8 +118,30 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bc90b78b-a6ce-45e0-a593-536540af3a6e"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""17b45bb2-b477-49cc-b516-a44bfe274317"",
                     ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66e12d14-55ff-4732-a9ca-f5ba49ff43a0"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -140,8 +162,30 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""040711a8-5c38-4e32-97a8-685464f4c7b3"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""84c9d625-9a46-48bb-875f-58cc45d4ef7e"",
                     ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0cf27c1-dfd3-4f05-baf0-c18cb1897510"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -156,24 +200,104 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             ""id"": ""07195609-ecc5-4aee-a547-ff6898c76325"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Left"",
                     ""type"": ""Button"",
                     ""id"": ""91b04992-20f2-41c3-93c5-1e3d9c30babb"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""1fae6488-1d59-406a-b7bf-0d625d5db2c0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ac01c2a-4106-4853-8f3c-b5a4d6d86dec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""61debf51-3e7e-422d-a78f-8c378ab8935e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeFocus"",
+                    ""type"": ""Value"",
+                    ""id"": ""0b012d04-30bf-4264-ad74-ef52ba85cfde"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""959d00b4-62b8-4d58-9fdb-aba69352fb69"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f49bee2-527a-4001-ab28-6c7564397487"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""942a15dc-8af6-4886-b85b-9e01db59ba1c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94c51f58-6f8f-47e1-bd3c-47f051efc2d2"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebc02706-d42a-46cd-867e-387433899754"",
+                    ""path"": ""<Gamepad>/rightStick/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""ChangeFocus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -220,7 +344,11 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_UI_Right = m_UI.FindAction("Right", throwIfNotFound: true);
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Newaction = m_Gameplay.FindAction("New action", throwIfNotFound: true);
+        m_Gameplay_Left = m_Gameplay.FindAction("Left", throwIfNotFound: true);
+        m_Gameplay_Right = m_Gameplay.FindAction("Right", throwIfNotFound: true);
+        m_Gameplay_Confirm = m_Gameplay.FindAction("Confirm", throwIfNotFound: true);
+        m_Gameplay_Return = m_Gameplay.FindAction("Return", throwIfNotFound: true);
+        m_Gameplay_ChangeFocus = m_Gameplay.FindAction("ChangeFocus", throwIfNotFound: true);
     }
 
     ~@InputControls()
@@ -374,12 +502,20 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     // Gameplay
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-    private readonly InputAction m_Gameplay_Newaction;
+    private readonly InputAction m_Gameplay_Left;
+    private readonly InputAction m_Gameplay_Right;
+    private readonly InputAction m_Gameplay_Confirm;
+    private readonly InputAction m_Gameplay_Return;
+    private readonly InputAction m_Gameplay_ChangeFocus;
     public struct GameplayActions
     {
         private @InputControls m_Wrapper;
         public GameplayActions(@InputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Gameplay_Newaction;
+        public InputAction @Left => m_Wrapper.m_Gameplay_Left;
+        public InputAction @Right => m_Wrapper.m_Gameplay_Right;
+        public InputAction @Confirm => m_Wrapper.m_Gameplay_Confirm;
+        public InputAction @Return => m_Wrapper.m_Gameplay_Return;
+        public InputAction @ChangeFocus => m_Wrapper.m_Gameplay_ChangeFocus;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -389,16 +525,40 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
+            @Confirm.started += instance.OnConfirm;
+            @Confirm.performed += instance.OnConfirm;
+            @Confirm.canceled += instance.OnConfirm;
+            @Return.started += instance.OnReturn;
+            @Return.performed += instance.OnReturn;
+            @Return.canceled += instance.OnReturn;
+            @ChangeFocus.started += instance.OnChangeFocus;
+            @ChangeFocus.performed += instance.OnChangeFocus;
+            @ChangeFocus.canceled += instance.OnChangeFocus;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
+            @Confirm.started -= instance.OnConfirm;
+            @Confirm.performed -= instance.OnConfirm;
+            @Confirm.canceled -= instance.OnConfirm;
+            @Return.started -= instance.OnReturn;
+            @Return.performed -= instance.OnReturn;
+            @Return.canceled -= instance.OnReturn;
+            @ChangeFocus.started -= instance.OnChangeFocus;
+            @ChangeFocus.performed -= instance.OnChangeFocus;
+            @ChangeFocus.canceled -= instance.OnChangeFocus;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -445,6 +605,10 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     }
     public interface IGameplayActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
+        void OnChangeFocus(InputAction.CallbackContext context);
     }
 }
