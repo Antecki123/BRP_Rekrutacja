@@ -10,8 +10,8 @@ public class GameplayNavigationView : FocusablePanel
     [SerializeField] private List<Selectable> buttonSelectables;
 
     private List<Selectable> _combatSelectables = new List<Selectable>();
-    private Selectable _currentSelected;
     private List<Selectable> _activeList = new List<Selectable>();
+    private Selectable _currentSelected;
 
     private InputControls _inputActions;
     private Camera _mainCamera;
@@ -165,63 +165,6 @@ public class GameplayNavigationView : FocusablePanel
     {
         if (_currentSelected != null)
             _currentSelected.Select();
-    }
-
-    private void OnCancel(InputAction.CallbackContext ctx)
-    {
-
-    }
-
-    private void ChangeFocus1(InputAction.CallbackContext ctx)
-    {
-        float value = ctx.ReadValue<float>();
-        List<Selectable> newList = null;
-        bool pickLeft = true;
-
-        if (value <= -.75f)
-        {
-            newList = _combatSelectables;
-            pickLeft = true;
-        }
-        else if (value >= .75f)
-        {
-            newList = buttonSelectables;
-            pickLeft = false;
-        }
-        else
-        {
-            return;
-        }
-
-        if (newList == null || newList.Count == 0)
-            return;
-
-        if (_currentSelected != null)
-        {
-            float currentX = _mainCamera.WorldToScreenPoint(_currentSelected.transform.position).x;
-
-            Selectable closest = newList
-                .Where(s => s != null && s.gameObject.activeInHierarchy)
-                .OrderBy(s => Mathf.Abs(_mainCamera.WorldToScreenPoint(s.transform.position).x - currentX))
-                .FirstOrDefault();
-
-            _activeList = newList;
-            _currentSelected = closest;
-        }
-        else
-        {
-            _activeList = newList;
-
-            IEnumerable<Selectable> candidates = newList
-                .Where(s => s != null && s.gameObject.activeInHierarchy);
-
-            _currentSelected = pickLeft
-                ? candidates.OrderBy(s => _mainCamera.WorldToScreenPoint(s.transform.position).x).FirstOrDefault()
-                : candidates.OrderByDescending(s => _mainCamera.WorldToScreenPoint(s.transform.position).x).FirstOrDefault();
-        }
-
-        if (_currentSelected != null)
-            EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
     }
 
     private void ChangeFocus(int direction)

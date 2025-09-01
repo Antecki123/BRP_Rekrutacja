@@ -96,9 +96,6 @@ public class UiNavigationView : FocusablePanel
 
     private void PreviousPosition(InputAction.CallbackContext ctx)
     {
-        if (NavigationController.Instance.GetLastFocusable() != this)
-            return;
-
         int index = selectables.IndexOf(_currentSelected);
         if (index <= 0)
             return;
@@ -117,9 +114,6 @@ public class UiNavigationView : FocusablePanel
 
     private void NextPosition(InputAction.CallbackContext ctx)
     {
-        if (NavigationController.Instance.GetLastFocusable() != this)
-            return;
-
         int index = selectables.IndexOf(_currentSelected);
         if (index >= selectables.Count - 1)
             return;

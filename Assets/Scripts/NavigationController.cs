@@ -24,21 +24,25 @@ public class NavigationController : MonoBehaviour
 
     #endregion
 
-    private Stack<FocusablePanel> focusablePanels = new Stack<FocusablePanel>();
+    private Stack<FocusablePanel> _focusablePanels = new Stack<FocusablePanel>();
 
     public void AddFocusable(FocusablePanel panel)
     {
-        focusablePanels.Push(panel);
+        _focusablePanels.Push(panel);
     }
 
     public void RemoveLastFocusable()
     {
-        focusablePanels.Pop();
+        if (_focusablePanels.Count > 1)
+            _focusablePanels.Pop();
     }
 
     public FocusablePanel GetLastFocusable()
     {
-        return focusablePanels.Peek();
+        if (_focusablePanels.Count > 0)
+            return _focusablePanels.Peek();
+        else
+            return null;
     }
 }
 

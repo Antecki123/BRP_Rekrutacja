@@ -222,6 +222,8 @@ MonoBehaviour:
   ActionsPanelObject: {fileID: 3644848724400825762}
   EnemySpriteRenderer: {fileID: 2741614182936948965}
   combatButton: {fileID: 8452450492084603706}
+  _bowButton: {fileID: 0}
+  _swordButton: {fileID: 0}
 --- !u!1 &2741614182936948960
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +509,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3644848724400825762}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bc57b5ee64fa474baa4cabbba178dcc, type: 3}
   m_Name: 
@@ -518,7 +520,6 @@ MonoBehaviour:
   layoutType: 0
   closeWithCancelButton: 1
   rememberLastButton: 0
-  _currentSelected: {fileID: 0}
 --- !u!1 &4855638656891421466
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +621,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0.3647059, b: 0.3647059, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 0.3647059, b: 0.3647059, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -828,7 +829,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0.3647059, b: 0.3647059, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 0.3647059, b: 0.3647059, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

@@ -54,6 +54,7 @@ public class InventoryView : UiView
     private void OnEnable()
     {
         ClearSoulInformation();
+        _contentParent.anchoredPosition = new Vector2(_contentParent.anchoredPosition.x, 0f);
     }
 
     private void ClearSoulInformation()

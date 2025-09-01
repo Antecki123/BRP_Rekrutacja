@@ -6,6 +6,7 @@ public class SoulEnemy : MonoBehaviour, IEnemy
     [SerializeField] private GameObject InteractionPanelObject;
     [SerializeField] private GameObject ActionsPanelObject;
     [SerializeField] private SpriteRenderer EnemySpriteRenderer;
+    [Space]
     [SerializeField] private Button combatButton;
 
     private SpawnPoint _enemyPosition;
@@ -21,20 +22,11 @@ public class SoulEnemy : MonoBehaviour, IEnemy
         GameEvents.EnemyCreated?.Invoke(this);
     }
 
-    public SpawnPoint GetEnemyPosition()
-    {
-        return _enemyPosition;
-    }
+    public SpawnPoint GetEnemyPosition() => _enemyPosition;
 
-    public GameObject GetEnemyObject()
-    {
-        return gameObject;
-    }
+    public GameObject GetEnemyObject() => gameObject;
 
-    public Selectable GetCombatButton()
-    {
-        return combatButton;
-    }
+    public Selectable GetCombatButton() => combatButton;
 
     private void ActiveCombatWithEnemy()
     {

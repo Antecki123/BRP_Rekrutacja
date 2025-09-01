@@ -1649,7 +1649,6 @@ MonoBehaviour:
   layoutType: 1
   closeWithCancelButton: 1
   rememberLastButton: 0
-  _currentSelected: {fileID: 0}
 --- !u!1 &899995588459660306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2859,7 +2858,6 @@ MonoBehaviour:
   layoutType: 1
   closeWithCancelButton: 1
   rememberLastButton: 0
-  _currentSelected: {fileID: 0}
 --- !u!1 &1941993581914623375
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,7 +4942,6 @@ MonoBehaviour:
   layoutType: 1
   closeWithCancelButton: 1
   rememberLastButton: 0
-  _currentSelected: {fileID: 0}
 --- !u!1 &3472454193382289901
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,7 +5130,6 @@ MonoBehaviour:
   layoutType: 1
   closeWithCancelButton: 0
   rememberLastButton: 1
-  _currentSelected: {fileID: 0}
 --- !u!1 &3740049496177446783
 GameObject:
   m_ObjectHideFlags: 0
@@ -7237,7 +7233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 280, y: -58.16705}
+  m_AnchoredPosition: {x: 280, y: -58.166992}
   m_SizeDelta: {x: 560, y: 116.3341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &344129753583196182
@@ -10900,6 +10896,7 @@ MonoBehaviour:
   Avatar: {fileID: 8146150602975384026}
   UseButton: {fileID: 8146150603438539386}
   DestroyButton: {fileID: 8146150602994425964}
+  content: {fileID: 0}
 --- !u!114 &278343313522716360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10917,7 +10914,6 @@ MonoBehaviour:
   columns: 3
   useAction: {fileID: 8146150603438539386}
   destroyAction: {fileID: 8146150602994425964}
-  _currentSelected: {fileID: 0}
 --- !u!1 &8146150602256720375
 GameObject:
   m_ObjectHideFlags: 0
@@ -16081,8 +16077,6 @@ MonoBehaviour:
   buttonSelectables:
   - {fileID: 8146150602390658471}
   - {fileID: 8146150604023670087}
-  _combatSelectables: []
-  _actionsSelectables: []
   _currentSelected: {fileID: 0}
 --- !u!1 &8146150604295200975
 GameObject:
