@@ -8,6 +8,7 @@ public class ScoreDisplayView : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.ScoreUpdated += UpdateScore;
+        UpdateScore();
     }
     private void OnDisable()
     {
