@@ -1,17 +1,19 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UiNavigationView : MonoBehaviour
+public class UiNavigationView : FocusablePanel
 {
     [SerializeField] private List<Selectable> selectables;
     [SerializeField] private LayoutType layoutType;
-    [SerializeField] private bool closeWithCancelButton;
     [Space]
-    [SerializeField] private Selectable _currentSelected;
+    [SerializeField] private bool closeWithCancelButton;
+    [SerializeField] private bool rememberLastButton;
 
+    private Selectable _currentSelected;
     private InputControls _inputActions;
 
     private void Awake()
@@ -19,28 +21,28 @@ public class UiNavigationView : MonoBehaviour
         _inputActions = new InputControls();
     }
 
-    private void Start()
-    {
-        if (selectables.Count > 0 && _currentSelected == null)
-        {
-            _currentSelected = selectables[0];
-            EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
-        }
-    }
-
     private void OnEnable()
     {
+        NavigationController.Instance.AddFocusable(this);
+
         _inputActions.UI.Enable();
         AttachListeners();
 
-        if (_currentSelected != null)
-            EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
+        if (selectables.Count == 0)
+            return;
+
+        StartCoroutine(DelayedSelect());
     }
 
     private void OnDisable()
     {
+        if (!rememberLastButton)
+            _currentSelected = null;
+
         DettachListeners();
         _inputActions.UI.Disable();
+
+        NavigationController.Instance.RemoveLastFocusable();
     }
 
     private void AttachListeners()
@@ -87,12 +89,16 @@ public class UiNavigationView : MonoBehaviour
     {
         if (closeWithCancelButton && TryGetComponent(out UiView uiView))
         {
+            NavigationController.Instance.RemoveLastFocusable();
             uiView.GetBackButton().onClick.Invoke();
         }
     }
 
     private void PreviousPosition(InputAction.CallbackContext ctx)
     {
+        if (NavigationController.Instance.GetLastFocusable() != this)
+            return;
+
         int index = selectables.IndexOf(_currentSelected);
         if (index <= 0)
             return;
@@ -111,6 +117,9 @@ public class UiNavigationView : MonoBehaviour
 
     private void NextPosition(InputAction.CallbackContext ctx)
     {
+        if (NavigationController.Instance.GetLastFocusable() != this)
+            return;
+
         int index = selectables.IndexOf(_currentSelected);
         if (index >= selectables.Count - 1)
             return;
@@ -125,6 +134,29 @@ public class UiNavigationView : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private IEnumerator DelayedSelect()
+    {
+        yield return null;
+
+        if (!rememberLastButton || _currentSelected == null)
+            _currentSelected = GetFirstAvailableSelectable();
+
+        if (_currentSelected != null)
+            EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
+    }
+
+    private Selectable GetFirstAvailableSelectable()
+    {
+        Selectable selectable = null;
+        foreach (var s in selectables)
+        {
+            if (s.gameObject.activeInHierarchy && s.IsInteractable())
+                return s;
+        }
+
+        return selectable;
     }
 }
 

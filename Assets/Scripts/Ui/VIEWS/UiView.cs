@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class UiView : MonoBehaviour
 {
-
     [Header("UI VIEW elements")] [SerializeField]
     private bool UnpauseOnClose = false;
 

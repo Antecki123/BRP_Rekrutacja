@@ -9,12 +9,6 @@ public enum GameLocalization
     TOWER
 }
 
-public enum GameState
-{
-    RUNNING,
-    PAUSED
-}
-
 public class GameControlller : MonoBehaviour
 {
     #region Singleton

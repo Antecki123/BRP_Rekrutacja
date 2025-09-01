@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryView : UiView
 {
+    public event Action OnGridRefresh;
+
     [Header("Inventory Elements")]
     [SerializeField]
     private SoulInformation SoulItemPlaceHolder;
@@ -17,6 +21,7 @@ public class InventoryView : UiView
     private GameObject _currentSelectedGameObject;
     private SoulInformation _currentSoulInformation;
     private SoulItem _selectedSoulItem;
+    private List<Selectable> _soulItems = new List<Selectable>();
 
     public override void Awake()
     {
@@ -25,12 +30,19 @@ public class InventoryView : UiView
         InitializeInventoryItems();
     }
 
+    public List<Selectable> GetSelectables()
+    {
+        return _soulItems;
+    }
+
     private void InitializeInventoryItems()
     {
         for (int i = 0, j = SoulController.Instance.Souls.Count; i < j; i++)
         {
             SoulInformation newSoul = Instantiate(SoulItemPlaceHolder.gameObject, _contentParent).GetComponent<SoulInformation>();
             newSoul.SetSoulItem(SoulController.Instance.Souls[i], () => SoulItem_OnClick(newSoul));
+
+            _soulItems.Add(newSoul.GetSelectableButton());
         }
 
         SoulItemPlaceHolder.gameObject.SetActive(false);
@@ -89,15 +101,23 @@ public class InventoryView : UiView
         {
             //USE SOUL
             GameEvents.ScoredPoints?.Invoke(soulItem.Reward);
+            _soulItems.Remove(_currentSoulInformation.GetSelectableButton());
+
             Destroy(_currentSelectedGameObject);
             ClearSoulInformation();
+
+            OnGridRefresh?.Invoke();
         }
     }
 
     private void DestroyCurrentSoul()
     {
+        _soulItems.Remove(_currentSoulInformation.GetSelectableButton());
+
         Destroy(_currentSelectedGameObject);
         ClearSoulInformation();
+
+        OnGridRefresh?.Invoke();
     }
 
     private void SetupUseButton(bool active, SoulItem soulItem = null)

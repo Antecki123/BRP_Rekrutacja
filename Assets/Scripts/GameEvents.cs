@@ -11,7 +11,4 @@
 
     public delegate void OnScoreUpdated();
     public static OnScoreUpdated ScoreUpdated;
-
-    public delegate void OnGameStateChanged(GameState gameState);
-    public static OnGameStateChanged GameStateChanged;
 }

@@ -5,35 +5,30 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class GameplayNavigationView : MonoBehaviour
+public class GameplayNavigationView : FocusablePanel
 {
     [SerializeField] private List<Selectable> buttonSelectables;
-    [SerializeField] private List<Selectable> _combatSelectables;
 
-    [SerializeField] private Selectable _currentSelected;
-    private List<Selectable> _activeList;
-    private bool _inCombat;
+    private List<Selectable> _combatSelectables = new List<Selectable>();
+    private Selectable _currentSelected;
+    private List<Selectable> _activeList = new List<Selectable>();
 
     private InputControls _inputActions;
     private Camera _mainCamera;
-
-    public bool Gameplay; //DEBUG
-    public bool Ui; //DEBUG
-
-    private void Update() //DEBUG
-    {
-        if (_inputActions != null)
-        {
-            Gameplay = _inputActions.Gameplay.enabled;
-            Ui = _inputActions.UI.enabled;
-        }
-    }
 
     private void Awake()
     {
         _mainCamera = Camera.main;
         _inputActions = new InputControls();
+    }
+
+    private void Start()
+    {
+        NavigationController.Instance.AddFocusable(this);
+
         _activeList = _combatSelectables;
+        _currentSelected = null;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void OnEnable()
@@ -45,6 +40,7 @@ public class GameplayNavigationView : MonoBehaviour
     private void OnDisable()
     {
         DettachListeners();
+        _inputActions.Gameplay.Disable();
     }
 
     private void AttachListeners()
@@ -55,9 +51,8 @@ public class GameplayNavigationView : MonoBehaviour
         _inputActions.Gameplay.Left.performed += MoveLeft;
         _inputActions.Gameplay.Right.performed += MoveRight;
         _inputActions.Gameplay.Confirm.performed += OnConfirm;
-        //_inputActions.Gameplay.Return.performed += OnCancel;
-
-        _inputActions.Gameplay.ChangeFocus.performed += ChangeFocus;
+        _inputActions.Gameplay.UpperFocus.performed += ctx => ChangeFocus(1);
+        _inputActions.Gameplay.LowerFocus.performed += ctx => ChangeFocus(-1);
     }
 
     private void DettachListeners()
@@ -68,36 +63,55 @@ public class GameplayNavigationView : MonoBehaviour
         _inputActions.Gameplay.Left.performed -= MoveLeft;
         _inputActions.Gameplay.Right.performed -= MoveRight;
         _inputActions.Gameplay.Confirm.performed -= OnConfirm;
-        //_inputActions.Gameplay.Return.performed -= OnCancel;
-
-        _inputActions.Gameplay.ChangeFocus.performed -= ChangeFocus;
+        _inputActions.Gameplay.UpperFocus.performed -= ctx => ChangeFocus(1);
+        _inputActions.Gameplay.LowerFocus.performed -= ctx => ChangeFocus(-1);
     }
 
     private void AddCombatButton(IEnemy enemy)
     {
         Selectable selectable = enemy.GetCombatButton();
-
         _combatSelectables.Add(selectable);
-        _combatSelectables = _combatSelectables
-            .OrderBy(s => _mainCamera.WorldToScreenPoint(s.transform.position).x)
-            .ToList();
+
+        _combatSelectables.Sort((a, b) =>
+            _mainCamera.WorldToScreenPoint(a.transform.position).x
+                .CompareTo(_mainCamera.WorldToScreenPoint(b.transform.position).x));
     }
 
     private void RemoveCombatButton(IEnemy enemy)
     {
         Selectable selectable = enemy.GetCombatButton();
-
         _combatSelectables.Remove(selectable);
-        _currentSelected = null;
+
+        if (_currentSelected == selectable)
+        {
+            _currentSelected = null;
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void MoveLeft(InputAction.CallbackContext ctx)
     {
+        if (_activeList.Count == 0 || NavigationController.Instance.GetLastFocusable() != this)
+            return;
+
+        if (_currentSelected == null)
+        {
+            _currentSelected = _activeList
+                .Where(s => s != null && s.gameObject.activeInHierarchy)
+                .OrderByDescending(s => _mainCamera.WorldToScreenPoint(s.transform.position).x)
+                .FirstOrDefault();
+
+            if (_currentSelected != null)
+                EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
+            return;
+        }
+
         int index = _activeList.IndexOf(_currentSelected);
         int safety = _activeList.Count;
 
         do
         {
+            if (index == -1) index = 0;
             index = (index - 1 + _activeList.Count) % _activeList.Count;
             safety--;
 
@@ -113,11 +127,27 @@ public class GameplayNavigationView : MonoBehaviour
 
     private void MoveRight(InputAction.CallbackContext ctx)
     {
+        if (_activeList.Count == 0 || NavigationController.Instance.GetLastFocusable() != this)
+            return;
+
+        if (_currentSelected == null)
+        {
+            _currentSelected = _activeList
+                .Where(s => s != null && s.gameObject.activeInHierarchy)
+                .OrderBy(s => _mainCamera.WorldToScreenPoint(s.transform.position).x)
+                .FirstOrDefault();
+
+            if (_currentSelected != null)
+                EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
+            return;
+        }
+
         int index = _activeList.IndexOf(_currentSelected);
         int safety = _activeList.Count;
 
         do
         {
+            if (index == -1) index = 0;
             index = (index + 1) % _activeList.Count;
             safety--;
 
@@ -137,28 +167,76 @@ public class GameplayNavigationView : MonoBehaviour
             _currentSelected.Select();
     }
 
-    // TODO
     private void OnCancel(InputAction.CallbackContext ctx)
     {
-        _inCombat = false;
+
     }
 
-    private void ChangeFocus(InputAction.CallbackContext ctx)
+    private void ChangeFocus1(InputAction.CallbackContext ctx)
     {
         float value = ctx.ReadValue<float>();
+        List<Selectable> newList = null;
+        bool pickLeft = true;
 
-        if (value < 0)
+        if (value <= -.75f)
+        {
+            newList = _combatSelectables;
+            pickLeft = true;
+        }
+        else if (value >= .75f)
+        {
+            newList = buttonSelectables;
+            pickLeft = false;
+        }
+        else
+        {
+            return;
+        }
+
+        if (newList == null || newList.Count == 0)
+            return;
+
+        if (_currentSelected != null)
+        {
+            float currentX = _mainCamera.WorldToScreenPoint(_currentSelected.transform.position).x;
+
+            Selectable closest = newList
+                .Where(s => s != null && s.gameObject.activeInHierarchy)
+                .OrderBy(s => Mathf.Abs(_mainCamera.WorldToScreenPoint(s.transform.position).x - currentX))
+                .FirstOrDefault();
+
+            _activeList = newList;
+            _currentSelected = closest;
+        }
+        else
+        {
+            _activeList = newList;
+
+            IEnumerable<Selectable> candidates = newList
+                .Where(s => s != null && s.gameObject.activeInHierarchy);
+
+            _currentSelected = pickLeft
+                ? candidates.OrderBy(s => _mainCamera.WorldToScreenPoint(s.transform.position).x).FirstOrDefault()
+                : candidates.OrderByDescending(s => _mainCamera.WorldToScreenPoint(s.transform.position).x).FirstOrDefault();
+        }
+
+        if (_currentSelected != null)
+            EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
+    }
+
+    private void ChangeFocus(int direction)
+    {
+        if (NavigationController.Instance.GetLastFocusable() != this)
+            return;
+
+        if (direction == -1)
             _activeList = _combatSelectables;
-        else if (value > 0)
+        else if (direction == 1)
             _activeList = buttonSelectables;
         else
             return;
 
-        if (_activeList != null && _activeList.Count > 0)
-        {
-            _currentSelected = _activeList.FirstOrDefault(s => s != null && s.gameObject.activeInHierarchy);
-            if (_currentSelected != null)
-                EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
-        }
+        _currentSelected = _activeList.FirstOrDefault();
+        EventSystem.current.SetSelectedGameObject(_currentSelected.gameObject);
     }
 }
